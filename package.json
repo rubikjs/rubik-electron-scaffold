@@ -1,0 +1,83 @@
+{
+  "name": "rubik-electron-scaffold",
+  "version": "1.0.0",
+  "description": "rubik-electron-scaffold",
+  "main": "main.js",
+  "scripts": {
+    "render-build": "rubik build",
+    "render-dev": "rubik serve",
+    "render-lint": "rubik lint",
+    "render-stylelint": "rubik stylelint --fix",
+    "main-build": "electron .",
+    "package": "yarn render-build && cross-env NODE_ENV=production electron-builder",
+    "package-win": "yarn render-build && cross-env NODE_ENV=production electron-builder --win",
+    "build": "yarn render-build && yarn main-build",
+    "main-dev": "cross-env NODE_ENV=development electron ."
+  },
+  "build": {
+    "appId": "net.fancyboy",
+    "files": [
+      "./dist/**/*",
+      "./main.js"
+    ],
+    "win": {
+      "icon": "",
+      "target": [
+        {
+          "target": "nsis"
+        }
+      ]
+    },
+    "mac": {
+      "category": "your.app.category.type"
+    },
+    "directories": {
+      "output": "build"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "",
+      "uninstallerIcon": "",
+      "installerHeaderIcon": "",
+      "createDesktopShortcut": false,
+      "createStartMenuShortcut": false,
+      "shortcutName": "xxxx",
+      "include": "",
+      "script": ""
+    }
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "cross-env": "latest",
+    "electron": "latest",
+    "electron-builder": "latest",
+    "husky": "latest",
+    "lint-staged": "latest",
+    "rubik-cli": "latest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "post-merge": "rubik check-package",
+      "post-checkout": "rubik check-package",
+      "commit-msg": "rubik commitlint"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "rubik lint",
+      "git add"
+    ],
+    "src/**/*.{css,scss,sass,less}": [
+      "rubik stylelint --fix",
+      "git add"
+    ]
+  }
+}
