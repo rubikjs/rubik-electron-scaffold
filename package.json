@@ -6,7 +6,7 @@
   "scripts": {
     "render-build": "rubik build",
     "render-dev": "rubik serve",
-    "render-lint": "rubik lint",
+    "render-lint": "rubik lint --fix",
     "render-stylelint": "rubik stylelint --fix",
     "main-build": "electron .",
     "package": "yarn render-build && cross-env NODE_ENV=production electron-builder",
@@ -72,7 +72,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [
-      "rubik lint",
+      "rubik lint --fix",
       "git add"
     ],
     "src/**/*.{css,scss,sass,less}": [
